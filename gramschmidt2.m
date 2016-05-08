@@ -5,7 +5,7 @@ Q(:,1) = A(:,1)/(R(1,1));
 for k = 1:(n-1)
     z=A(:,k+1);
     for l = 1:k
-        R(l,k+1) = transpose(Q(:,l))*z;
+        R(l,k+1) = (Q(:,l))'*z;
         z = z - R(l,k+1)*Q(:,l);
     end
     R(k+1, k+1) = norm(z);
