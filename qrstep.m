@@ -5,9 +5,9 @@ function [A] = QRstep(I)
 
 [Qi,Ri] = qr(I); 
 A = Ri*Qi;
-A(A==0) = eps;
-figure;
-imagesc(A);
-hold on;
+%figure;
+%imagesc(A);
+%print('-dtiff', '-r600');
+%hold on;
 
 end

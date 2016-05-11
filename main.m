@@ -93,7 +93,7 @@ load('practicum.mat')
 % %print('GramSchmidtRelError','-depsc');
 
 %% QRstep visualization
-% Calculate random array
+%Calculate random array
 [Q,~]=qr(rand(8)); 
 A=Q*diag([1 2 4 8 16 256 512 2048])*Q';
 
@@ -102,6 +102,38 @@ for K = 1:number
     A=QRstep(A);
 end
 
+%% QRstep lineair convergentiegedrag
+
+% " ... eigenwaarden van een symmetrische matrix geordend in modulus ... "
+check = diag([2048 512 256 16 8 4 2 1]);
+
+% " ... random symmetrische matrix met eigenwaarden ... "
+[Q,~] = qr(rand(8));
+M = Q *diag([1 2 4 8 16 256 512 2048]) * Q';
+% 
+% "... plots die het lineair convergentiegedrag illustreren"
+
+% Deze plot toont het de relatieve fout van de elementen van de
+% oorspronkelijke random matrix en de matrix die zou moeten uitgekomen
+% worden
+
+imagesc(abs((M-check)/check));
+print('BeforeQR','-dtiff', '-r600');
+% 
+% % Laten we nu 10 iteraties van QRstep lopen
+% % en visualiseren we de tussenstappen
+for l = 1:50
+    M = QRstep(M);
+    figure;
+    imagesc(abs((M-check)/check));
+    if mod(l,5) == 0
+        print(l,'-dtiff', '-r600');
+    end
+end
+M
+check
+imagesc(abs((M-check)/check));
+print('AfterQR','-dtiff', '-r600');
 
 
 

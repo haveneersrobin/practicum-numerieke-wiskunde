@@ -1,17 +1,16 @@
 function [Hk] = QRstepHessenberg(H)
 % QR decompositie voor Hessenberg matrices
-[M,N] = size(H);
+[m,n] = size(H);
 
 Qstar = H;
-Q=eye(M,N);
+Q=eye(m,n);
 
-for l = 1:N-1
-    subMatrix = [H(l,l), H(l+1,l)]';
-    [Gr,~] = planerot(subMatrix);
-    G = eye(M,N);
+for l = 1:n-1
+    Gr = planerot([Qstar(l,l), Qstar(l+1,l)]');
+    G = eye(m,n);
     G(l:l+1,l:l+1) = Gr(1:2,1:2); 
     Qstar =  G * Qstar;
-    Q = Q * G^-1;
+    Q = Q * G';
 end
 Hk = Qstar*Q;
 end

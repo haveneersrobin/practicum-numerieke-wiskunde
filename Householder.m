@@ -24,7 +24,5 @@ for K = 1:M-2
     R(1:M, K+1:M) = R(1:M,K+1:M) - 2*(R(1:M,K+1:M)*U)*U';
 end
 
-
-
 end
 
